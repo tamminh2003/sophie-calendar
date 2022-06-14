@@ -10,7 +10,7 @@ export default function Day(props) {
       date: day,
       shiftType: e.target.dataset.value
     };
-    await fetch("http://localhost:4000/api/shifts/", {
+    await fetch("/api/shifts/", {
       method: 'POST',
       mode: 'cors',
       headers: {
