@@ -19,17 +19,26 @@ function App() {
 
 
   return (
-    <div id="App" className="w-screen">
+    <div id="App" className="w-screen h-screen">
 
       <Comps.Month date={date} setDate={setDate} />
-      <div className="m-auto w-fit mb-4">
-        <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handlePrevClick}>Prev</button>
-        <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handleNextClick}>Next</button>
+
+      <div class="absolute bottom-60 w-screen">
+      <div className="flex justify-center mb-4">
+          <button className="text-white mx-4 bg-teal-500 px-4 rounded-full border font-semibold">AM</button>
+          <button className="text-white mx-4 bg-purple-500 px-4 rounded-full border font-semibold">PM</button>
+          <button className="text-white mx-4 bg-indigo-600 px-4 rounded-full border font-semibold">Night</button>
+        </div>
+        <div className="flex justify-center mb-4">
+          <button className="text-white mx-4 bg-sky-400 px-4 rounded-full border font-semibold" onClick={handlePrevClick}>Prev</button>
+          <button className="text-white mx-4 bg-sky-400 px-4 rounded-full border font-semibold" onClick={handleNextClick}>Next</button>
+        </div>
+        <div className="flex justify-center w-screen">
+          <MonthList date={date} setDate={setDate} />
+          <YearList date={date} setDate={setDate} />
+        </div>
       </div>
-      <div className="m-auto w-fit">
-        <MonthList date={date} setDate={setDate} />
-        <YearList date={date} setDate={setDate} />
-      </div>
+
     </div>
   );
 }
