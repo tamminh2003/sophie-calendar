@@ -8,9 +8,10 @@ const models = require('../models/');
 
 const api = {
   post: async function (req, res, next) {
+    console.log("Processing POST /api/shifts/");
     const { shiftType } = req.body;
-    const date = new Date(req.body.date);
-    const shift = new models.Shift({ date, shiftType });
+    const datetime = new Date(req.body.date);
+    const shift = new models.Shift({ datetime, title: "Shift", desc: "This is a shift", shiftType });
     try {
       await shift.save()
       res.json({ "id": shift._id });
@@ -21,13 +22,14 @@ const api = {
   },
 
   get: async function (req, res, next) {
+    console.log("Processing GET /api/shifts/");
     let shift;
     try {
 
       if (req.params.id && req.params.id.length == 8) { // get specific date
         let id = req.params.id;
         let date = id.substring(0, 4) + '-' + id.substring(4, 6) + '-' + id.substring(6, 8);
-        shift = await models.Shift.find({ date });
+        shift = await models.Event.find({ date, __t: "Shift" });
         console.log(shift);
         res.status(200).json({ "data": shift });
       }
