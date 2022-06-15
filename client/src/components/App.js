@@ -1,12 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import * as Comps from '.';
 import * as _Date from 'date-fns';
+import React from 'react';
 import { useState } from 'react';
 
 function App() {
   const [now, setNow] = useState(new Date());
   const [date, setDate] = useState(_Date.startOfMonth(now));
+
 
   function handlePrevClick(e) {
     setDate(_Date.addMonths(date, -1));
@@ -15,13 +16,20 @@ function App() {
   function handleNextClick(e) {
     setDate(_Date.addMonths(date, 1));
   }
+
+
   return (
-    <div>
-      <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handlePrevClick}>Prev</button>
-      <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handleNextClick}>Next</button>
-      <MonthList date={date} setDate={setDate} />
-      <YearList date={date} setDate={setDate} />
+    <div id="App" className="w-screen">
+
       <Comps.Month date={date} setDate={setDate} />
+      <div className="m-auto w-fit mb-4">
+        <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handlePrevClick}>Prev</button>
+        <button className="text-white mx-4 bg-purple-400 px-4 rounded-full border border-teal-800" onClick={handleNextClick}>Next</button>
+      </div>
+      <div className="m-auto w-fit">
+        <MonthList date={date} setDate={setDate} />
+        <YearList date={date} setDate={setDate} />
+      </div>
     </div>
   );
 }

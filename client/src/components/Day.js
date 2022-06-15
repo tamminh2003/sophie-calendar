@@ -22,28 +22,24 @@ export default function Day(props) {
     setShifts(await fetchShifts(date));
   }
 
-  const popupStyle = ".popup-arrow { color: rgb(129, 140, 248);}"
-
   return (
-    <div className='border border-solid border-black h-24 day-container'>
-      <div>{_Date.getDate(day)}</div>
-      <div>{shift?.shiftType.toUpperCase()}</div>
-      <Popup trigger={<button className='px-4 button rounded bg-indigo-400 text-slate-100'>Add Shift</button>}
-        position={['bottom center']}
-        arrow={true}
-        closeOnDocumentClick
-      >
-        <div className='rounded border border-indigo-400 bg-indigo-400 text-slate-100'>
-          <style>
-            {popupStyle}
-          </style>
-          <ul className='px-6 cursor-pointer'>
-            <li data-value='am' onClick={handleListClick}>AM</li>
-            <li data-value='pm' onClick={handleListClick}>PM</li>
-            <li data-value='night' onClick={handleListClick}>Night</li>
-          </ul>
-        </div>
-      </Popup>
+    <div className='h-10 w-10 day-container'>
+
+      {shift && shift.shiftType === 'am'
+        && <div className="flex h-10 items-center justify-center  border rounded-full bg-teal-500 text-slate-200 font-semibold">
+          {_Date.getDate(day)}
+        </div>}
+      {shift && shift.shiftType === 'pm'
+        && <div className="flex h-10 items-center justify-center  border rounded-full bg-purple-500 text-white font-semibold">
+          {_Date.getDate(day)}
+        </div>}
+      {shift && shift.shiftType === 'night'
+        && <div className="flex h-10 items-center justify-center  border rounded-full bg-indigo-600 text-white font-semibold">
+          {_Date.getDate(day)}
+        </div>}
+      {!shift && <div className="flex h-10 items-center justify-center  border rounded-full bg-indigo-200 text-slate-600 font-semibold">
+        {_Date.getDate(day)}
+      </div>}
     </div>
   )
 }
