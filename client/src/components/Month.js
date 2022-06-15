@@ -40,7 +40,7 @@ export default function Month(props) {
   function generateListOfDays(calendarDates) {
     return calendarDates.map(day => {
       const shift = (shifts.filter(each => {
-        const shiftDate = new Date(each.date);
+        const shiftDate = new Date(each.datetime);
         return _Date.getDate(shiftDate) === _Date.getDate(day) && _Date.getMonth(shiftDate) === _Date.getMonth(day);
       }))[0];
       return (
