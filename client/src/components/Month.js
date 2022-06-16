@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import * as Comps from '../components';
-import { fetchShifts, getDaysInMonth, getStyle, randomIcon } from '../utils';
+import { fetchShifts, getDaysInMonth, getStyle } from '../utils';
 
 export default function Month(props) {
   const date = props.date;
@@ -28,11 +28,12 @@ export default function Month(props) {
 
   return (
     <>
-      <h1 className="mt-4 text-center text-3xl font-bold text-slate-100">{_Date.format(date, 'LLLL')}  {_Date.format(date, 'yyyy')}</h1>
       <div id="Month" className={getStyle(style)}>
         <DaysOfWeek />
         <ListOfDays calendarDates={calendarDates} />
       </div>
+      <h1 className="mt-4 text-center text-3xl font-bold text-slate-100">{_Date.format(date, 'LLLL')}  {_Date.format(date, 'yyyy')}</h1>
+
     </>
   );
 
