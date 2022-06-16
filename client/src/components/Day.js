@@ -1,6 +1,6 @@
 import * as _Date from 'date-fns';
 import Popup from 'reactjs-popup';
-import { fetchShifts } from '../utils';
+import { fetchShifts, getStyle } from '../utils';
 
 export default function Day(props) {
   const { date, day, shift, setShifts } = props;
@@ -22,26 +22,48 @@ export default function Day(props) {
     setShifts(await fetchShifts(date));
   }
 
-  const className = "flex h-10 items-center justify-center  border rounded-full font-semibold drop-shadow-lg active:scale-75 transform duration-75";
+  const style = {
+    size: "h-day",
+    border: "border rounder-2xl border-transparent",
+    font: "font-semibold",
+    shadow: "drop-shadow-lg",
+    layout: "flex items-center justify-center",
+    transform: "active:opacity-50 transform duration-75",
+    other: "select-none"
+  }
+
+  const shiftTextStyle = {
+    position: "absolute bottom-0",
+    font: "text-sm font-normal"
+  }
 
   return (
-    <div className='h-10 w-10 day-container'>
+    <div className='day-container'>
 
       {shift && shift.shiftType === 'am'
-        && <div className={`${className} bg-teal-500 text-slate-200`}>
+        && <div className={`${getStyle(style)} bg-teal-500 text-slate-200`}>
           {_Date.getDate(day)}
+          <div className={getStyle(shiftTextStyle)}>{shift.shiftType.toUpperCase()}</div>
         </div>}
+
       {shift && shift.shiftType === 'pm'
-        && <div className={`${className} bg-purple-500 text-white`}>
+        && <div className={`${getStyle(style)} bg-purple-500 text-white`}>
           {_Date.getDate(day)}
+          <div className={getStyle(shiftTextStyle)}>{shift.shiftType.toUpperCase()}</div>
+
         </div>}
+
       {shift && shift.shiftType === 'night'
-        && <div className={`${className} bg-indigo-600 text-white`}>
+        && <div className={`${getStyle(style)} bg-indigo-600 text-white`}>
           {_Date.getDate(day)}
+          <div className={getStyle(shiftTextStyle)}>{shift.shiftType.toUpperCase()}</div>
+
         </div>}
-      {!shift && <div className={`${className} bg-indigo-200 text-slate-600`}>
+
+      {!shift && <div className={`${getStyle(style)} bg-transparent text-white`}>
         {_Date.getDate(day)}
       </div>}
+
     </div>
   )
 }
