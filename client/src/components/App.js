@@ -19,8 +19,8 @@ function App() {
     <div id="App" className={getStyle(style)}>
       <Comps.MenuBar />
       <Comps.Month date={date} setDate={setDate} />
+      
       <Comps.ControlButtons date={date} setDate={setDate} />
-
     </div>
   );
 }
