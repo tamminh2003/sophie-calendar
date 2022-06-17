@@ -24,9 +24,9 @@ export default function DatePicker({ date, setDate }) {
 
   return (
     <>
-      <h1 className="mt-4 text-center text-3xl font-bold text-slate-100" >
-        <span onClick={handleOpenMonth}>{_Date.format(date, 'LLLL')}</span> <span onClick={handleOpenYear}>{_Date.format(date, 'yyyy')}</span>
-      </h1>
+      <div className="text-center text-3xl font-bold text-slate-100" >
+        <span className="select-none" onClick={handleOpenMonth}>{_Date.format(date, 'LLLL')}</span> <span className="select-none" onClick={handleOpenYear}>{_Date.format(date, 'yyyy')}</span>
+      </div>
       <Dialog open={openMonth} onClose={handleCloseMonth}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <MonthPicker
@@ -34,6 +34,7 @@ export default function DatePicker({ date, setDate }) {
             onChange={newDate => { setDate(newDate); handleCloseMonth(); }}
             minDate={minDate}
             maxDate={maxDate}
+            className={"w-monthPicker"}
           />
         </LocalizationProvider>
       </Dialog>
