@@ -4,7 +4,10 @@ module.exports = {
     extend: {
       height: {
         "492px": "492px",
-        "day": "100px"
+        "day": "calc(100vh/8)"
+      },
+      width: {
+        "monthPicker": "285px !important"
       }
     }
   },
