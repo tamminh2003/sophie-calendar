@@ -3,21 +3,38 @@ import Popup from 'reactjs-popup';
 import { fetchShifts, getStyle } from '../utils';
 
 export default function Day(props) {
-  const { date, day, shift, setShifts } = props;
+  const { date, day, shift, setShifts, mode } = props;
 
   async function handleListClick(e) {
-    const fetchBody = {
-      date: day,
-      shiftType: e.target.dataset.value
-    };
-    await fetch("/api/shifts/", {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(fetchBody)
-    });
+    if (mode === null) return;
+    
+    if (mode === 'delete') {
+      const fetchBody = {
+        date: day,
+      };
+      await fetch("/api/shifts/", {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(fetchBody)
+      });
+    }
+    else {
+      const fetchBody = {
+        date: day,
+        shiftType: mode
+      };
+      await fetch("/api/shifts/", {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(fetchBody)
+      });
+    }
 
     setShifts(await fetchShifts(date));
   }
@@ -34,11 +51,12 @@ export default function Day(props) {
 
   const shiftTextStyle = {
     position: "absolute bottom-0",
-    font: "text-sm font-normal"
+    font: "text-sm font-normal",
+    other: "select-none"
   }
 
   return (
-    <div className='day-container'>
+    <div className='day-container select-none' onClick={handleListClick}>
 
       {shift && shift.shiftType === 'am'
         && <div className={`${getStyle(style)} bg-teal-500 text-slate-200`}>
