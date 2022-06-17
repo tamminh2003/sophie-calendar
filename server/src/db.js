@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 module.exports = {
   connect: DB_HOST => {
     // Connect to the DB
-    mongoose.connect(DB_HOST);
+    mongoose.connect(DB_HOST, {dbName: "sophie-calendar"});
     // Log an error if we fail to connect
     mongoose.connection.on('error', err => {
       console.error(err);

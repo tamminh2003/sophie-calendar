@@ -4,21 +4,18 @@ import { fetchShifts, getStyle } from '../utils';
 
 export default function Day(props) {
   const { date, day, shift, setShifts, mode } = props;
-
+  
   async function handleListClick(e) {
     if (mode === null) return;
-    
+
     if (mode === 'delete') {
-      const fetchBody = {
-        date: day,
-      };
       await fetch("/api/shifts/", {
         method: 'DELETE',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(fetchBody)
+        body: JSON.stringify({date: day})
       });
     }
     else {
@@ -35,7 +32,7 @@ export default function Day(props) {
         body: JSON.stringify(fetchBody)
       });
     }
-
+    
     setShifts(await fetchShifts(date));
   }
 
@@ -48,7 +45,7 @@ export default function Day(props) {
     transform: "active:opacity-50 transform duration-75",
     other: "select-none"
   }
-
+  
   const shiftTextStyle = {
     position: "absolute bottom-0",
     font: "text-sm font-normal",

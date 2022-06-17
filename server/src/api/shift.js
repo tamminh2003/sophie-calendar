@@ -9,10 +9,11 @@ const models = require('../models/');
 const api = {
   post: async function (req, res, next) {
     console.log("Processing POST /api/shifts/");
-    const { shiftType } = req.body;
-    const datetime = new Date(req.body.date);
-    const shift = new models.Shift({ datetime, title: "Shift", desc: "This is a shift", shiftType });
     try {
+      const { shiftType } = req.body;
+      const datetime = new Date(req.body.date);
+      const shift = new models.Shift({ datetime, title: "Shift", desc: "This is a shift", shiftType });
+
       await shift.save()
       res.status(200).json({ "data": { "id": shift._id } });
     } catch (err) {
@@ -30,7 +31,6 @@ const api = {
         let id = req.params.id;
         let date = id.substring(0, 4) + '-' + id.substring(4, 6) + '-' + id.substring(6, 8);
         shift = await models.Event.find({ date, __t: "Shift" });
-        console.log(shift);
         res.status(200).json({ "data": shift });
       }
 
@@ -38,6 +38,8 @@ const api = {
         const id = req.params.id;
         const monthStart = new Date(id.substring(0, 4) + '-' + id.substring(4, 6) + '-01');
         const dates = getDaysInMonth(monthStart);
+        console.log("DEBUG");
+        console.log(models.Event);
         shift = await models.Shift.find({ "date": { $gte: dates[0], $lte: dates[dates.length - 1] } });
         res.status(200).json({ "data": shift });
       }
