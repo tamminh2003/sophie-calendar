@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import * as Comps from '../components';
 import { fetchShifts, getDaysInMonth, getStyle } from '../utils';
 
-export default function Month({ date, setDate }) {
+export default function Month({ date, setDate, mode }) {
   const calendarDates = getDaysInMonth(date);
 
   const isDesktop = useMediaQuery({
@@ -72,7 +72,7 @@ export default function Month({ date, setDate }) {
           && _Date.getYear(shiftDate) === _Date.getYear(day);
       }))[0];
       return (
-        <Comps.Day key={day.valueOf()} date={date} day={day} shift={shift} setShifts={setShifts} />
+        <Comps.Day key={day.valueOf()} date={date} day={day} shift={shift} setShifts={setShifts} mode={mode}/>
       );
     });
     return (<>{listOfDays}</>)
