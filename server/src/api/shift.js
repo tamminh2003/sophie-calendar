@@ -14,7 +14,7 @@ const api = {
     const shift = new models.Shift({ datetime, title: "Shift", desc: "This is a shift", shiftType });
     try {
       await shift.save()
-      res.json({ "id": shift._id });
+      res.status(200).json({ "data": { "id": shift._id } });
     } catch (err) {
       console.error(err);
       res.status(500).send("Error");
@@ -47,6 +47,18 @@ const api = {
       res.status(500).send("Error");
     }
 
+  },
+
+  delete: async function (req, res, next) {
+    console.log("Processing DELETE /api/shifts/");
+    const datetime = new Date(req.body.date);
+    try {
+      await models.Shift.findOneAndDelete({ datetime });
+      res.status(200).send("Deleted");
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error");
+    }
   }
 
 }

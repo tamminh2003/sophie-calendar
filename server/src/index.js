@@ -22,6 +22,7 @@ app.use(express.static("build"));
 
 app.post('/api/shifts', api.shift.post);
 app.get('/api/shifts/:id', api.shift.get);
+app.delete('/api/shifts', api.shift.delete);
 app.get('/', (req, res) => {
   res.sendFile(path.join("index.html"));
 });
